@@ -8,7 +8,7 @@ interface BottomNavProps {
 }
 
 const tabs = [
-  { id: "habits", icon: LayoutGrid, label: "الروتين" },
+  { id: "habits", icon: LayoutGrid, label: "الأساسيات" },
   { id: "quotes", icon: Quote, label: "اقتباساتي" },
   { id: "journal", icon: NotebookText, label: "تدوين" },
   { id: "goals", icon: Target, label: "أهداف" },

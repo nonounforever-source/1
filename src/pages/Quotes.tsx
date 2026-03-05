@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Portal } from "@/components/ui/Portal";
 import { Plus, Trash2, Quote as QuoteIcon, Copy, Sparkles, Check, Search } from "lucide-react";
-import { useApp, DAILY_QUOTES } from "@/lib/store";
+import { useApp } from "@/lib/store";
 import { cn, hapticFeedback } from "@/lib/utils";
+import { ARABIC_QUOTES } from "@/data/quotes";
 
 export function QuotesPage() {
-  const { userQuotes, addUserQuote, deleteUserQuote, dailyQuoteIndex } = useApp();
+  const { userQuotes, addUserQuote, deleteUserQuote } = useApp();
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [newQuote, setNewQuote] = useState({ text: "", author: "", source: "", reflection: "" });
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const dailyQuote = DAILY_QUOTES[dailyQuoteIndex] || DAILY_QUOTES[0];
+  const [dailyQuote, setDailyQuote] = useState(ARABIC_QUOTES[0]);
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * ARABIC_QUOTES.length);
+    setDailyQuote(ARABIC_QUOTES[randomIndex]);
+  }, []);
 
   const filteredQuotes = userQuotes.filter(q => 
     q.text.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -94,7 +100,7 @@ export function QuotesPage() {
             <div className="flex items-center justify-between mb-4">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em]">
                 <Sparkles size={10} />
-                إلهام اليوم
+                اقتباس
               </span>
               <button 
                 onClick={() => handleCopy(dailyQuote.text, 'daily')}

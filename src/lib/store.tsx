@@ -82,8 +82,6 @@ export interface AppState {
   goals: Goal[];
   events: CalendarEvent[];
   waterSchedule: WaterSchedule[];
-  dailyQuoteIndex: number;
-  lastQuoteUpdate: string; // ISO date string
   settings: {
     wakeTime: string;
     sleepTime: string;
@@ -91,50 +89,6 @@ export interface AppState {
     isFirstTime: boolean;
   };
 }
-
-// Static Data for "Daily Inspiration"
-export const DAILY_QUOTES = [
-  { text: "إنما السعادة في أن يكون لك قلب يفيض بالحب، وعقل يفيض بالنور.", author: "المنفلوطي", source: "النظرات" },
-  { text: "لا حياة مع اليأس، ولا يأس مع الحياة.", author: "المنفلوطي", source: "العبرات" },
-  { text: "على قدر أهل العزم تأتي العزائم .. وتأتي على قدر الكرام المكارم", author: "المتنبي", source: "ديوان المتنبي" },
-  { text: "إنما الأمم الأخلاق ما بقيت .. فإن هم ذهبت أخلاقهم ذهبوا", author: "أحمد شوقي", source: "الشوقيات" },
-  { text: "الكتاب هو الجليس الذي لا يطريك، والصديق الذي لا يغريك.", author: "الجاحظ", source: "البيان والتبيين" },
-  { text: "الخيل والليل والبيداء تعرفني .. والسيف والرمح والقرطاس والقلم", author: "المتنبي", source: "ديوان المتنبي" },
-  { text: "لا تحسبن المجد تمراً أنت آكله .. لن تبلغ المجد حتى تلعق الصبرا", author: "أبو تمام", source: "" },
-  { text: "ما حك جلدك مثل ظفرك .. فتول أنت جميع أمرك", author: "الإمام الشافعي", source: "" },
-  { text: "ضاقت فلما استحكمت حلقاتها .. فرجت وكنت أظنها لا تفرج", author: "الإمام الشافعي", source: "" },
-  { text: "القراءة تضيف إلى عمر الإنسان أعماراً أخرى.", author: "عباس محمود العقاد", source: "أنا" },
-  { text: "إن لم تزد شيئاً على الدنيا، كنت أنت زائداً عليها.", author: "مصطفى صادق الرافعي", source: "وحي القلم" },
-  { text: "العلم كالنور يضيء الطريق، والجهل كالظلام يتيه فيه الإنسان.", author: "طه حسين", source: "مستقبل الثقافة في مصر" },
-  { text: "ما كل ما يتمنى المرء يدركه .. تجري الرياح بما لا تشتهي السفن", author: "المتنبي", source: "ديوان المتنبي" },
-  { text: "وما نيل المطالب بالتمني .. ولكن تؤخذ الدنيا غلابا", author: "أحمد شوقي", source: "الشوقيات" },
-  { text: "الفضيلة هي الشيء الوحيد الذي لا يمكن أن يندم عليه الإنسان.", author: "المنفلوطي", source: "النظرات" },
-  { text: "البيان هو إخراج ما في النفس من المعاني باللفظ الدال.", author: "الجاحظ", source: "البيان والتبيين" },
-  { text: "إذا أنت أكرمت الكريم ملكته .. وإن أنت أكرمت اللئيم تمردا", author: "المتنبي", source: "ديوان المتنبي" },
-  { text: "صلاح أمرك للأخلاق مرجعه .. فقوم النفس بالأخلاق تستقم", author: "أحمد شوقي", source: "الشوقيات" },
-  { text: "يخاطبني السفيه بكل قبح .. فأكره أن أكون له مجيباً", author: "الإمام الشافعي", source: "" },
-  { text: "الأمل هو تلك النافذة الصغيرة التي مهما صغر حجمها، إلا أنها تفتح آفاقاً واسعة في الحياة.", author: "المنفلوطي", source: "العبرات" },
-  { text: "ذو العقل يشقى في النعيم بعقله .. وأخو الجهالة في الشقاوة ينعم", author: "المتنبي", source: "ديوان المتنبي" },
-  { text: "ليس اليتيم من انتهى أبواه .. إن اليتيم يتيم العلم والأدب", author: "أحمد شوقي", source: "الشوقيات" },
-  { text: "العقل هو آلة التمييز بين الحق والباطل.", author: "الجاحظ", source: "كتاب الحيوان" },
-  { text: "الجمال ليس في الوجوه، بل في القلوب.", author: "مصطفى صادق الرافعي", source: "أوراق الورد" },
-  { text: "أنا لا أقرأ لأكتب، بل أقرأ لأعيش.", author: "عباس محمود العقاد", source: "أنا" },
-  { text: "الحرية هي روح الحياة، وبدونها لا قيمة للإنسان.", author: "طه حسين", source: "في الأدب الجاهلي" },
-  { text: "من أراد الدنيا فعليه بالعلم، ومن أراد الآخرة فعليه بالعلم.", author: "الإمام الشافعي", source: "" },
-  { text: "الدموع هي لغة القلوب الصامتة.", author: "المنفلوطي", source: "النظرات" },
-  { text: "أعز مكان في الدنا سرج سابح .. وخير جليس في الزمان كتاب", author: "المتنبي", source: "ديوان المتنبي" },
-  { text: "قم للمعلم وفه التبجيلا .. كاد المعلم أن يكون رسولا", author: "أحمد شوقي", source: "الشوقيات" },
-  { text: "العلم صيد والكتابة قيد.", author: "الجاحظ", source: "البيان والتبيين" },
-  { text: "ومن يتهيب صعود الجبال .. يعش أبد الدهر بين الحفر", author: "أبو القاسم الشابي", source: "" },
-  { text: "إذا الشعب يوماً أراد الحياة .. فلا بد أن يستجيب القدر", author: "أبو القاسم الشابي", source: "" },
-  { text: "نعيب زماننا والعيب فينا .. وما لزماننا عيب سوانا", author: "الإمام الشافعي", source: "" },
-  { text: "بقدر الكد تكتسب المعالي .. ومن طلب العلا سهر الليالي", author: "الإمام الشافعي", source: "" },
-  { text: "إذا المرء لا يرعاك إلا تكلفاً .. فدعه ولا تكثر عليه التأسفا", author: "الإمام الشافعي", source: "" },
-  { text: "فما أكثر الإخوان حين تعدهم .. ولكنهم في النائبات قليل", author: "الإمام الشافعي", source: "" },
-  { text: "ولا حزن يدوم ولا سرور .. ولا بؤس عليك ولا رخاء", author: "الإمام الشافعي", source: "" },
-  { text: "إذا ما كنت ذا قلب قنوع .. فأنت ومالك الدنيا سواء", author: "الإمام الشافعي", source: "" },
-  { text: "سأعيش رغم الداء والأعداء .. كالنسر فوق القمة الشماء", author: "أبو القاسم الشابي", source: "" },
-];
 
 // --- Initial Data ---
 const INITIAL_HABITS: Habit[] = [
@@ -210,8 +164,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       goals: [],
       events: [],
       waterSchedule: INITIAL_WATER_SCHEDULE,
-      dailyQuoteIndex: Math.floor(Math.random() * DAILY_QUOTES.length),
-      lastQuoteUpdate: new Date().toISOString().split('T')[0],
       settings: {
         wakeTime: "06:00",
         sleepTime: "22:30",
@@ -220,18 +172,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       },
     };
   });
-
-  // Daily Quote Rotation Logic
-  useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    if (state.lastQuoteUpdate !== today) {
-      setState(s => ({
-        ...s,
-        lastQuoteUpdate: today,
-        dailyQuoteIndex: (s.dailyQuoteIndex + 1) % DAILY_QUOTES.length
-      }));
-    }
-  }, [state.lastQuoteUpdate, state.dailyQuoteIndex]);
 
   // Persist state changes to localStorage
   useEffect(() => {
@@ -249,7 +189,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const newHabit = { ...habit, id: uuidv4(), completedDates: {} };
       const newEvent: CalendarEvent = {
         id: uuidv4(),
-        title: `روتين: ${habit.title}`,
+        title: `أساسيات: ${habit.title}`,
         startDate: new Date().toISOString(),
         endDate: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
         allDay: true,
@@ -265,7 +205,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const newHabits = s.habits.map(h => h.id === id ? { ...h, ...updates } : h);
       let newEvents = s.events;
       if (updates.title) {
-        newEvents = s.events.map(e => e.linkedId === id ? { ...e, title: `روتين: ${updates.title}` } : e);
+        newEvents = s.events.map(e => e.linkedId === id ? { ...e, title: `أساسيات: ${updates.title}` } : e);
       }
       return { ...s, habits: newHabits, events: newEvents };
     });

@@ -28,8 +28,8 @@ export function OnboardingPage() {
         className="w-full max-w-md ios-card p-8 shadow-2xl"
       >
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-extrabold tracking-tight mb-3">أهلاً بك في روتيني</h1>
-          <p className="text-muted-foreground font-medium">لنقم بضبط أوقاتك الأساسية لنساعدك في بناء روتينك اليومي.</p>
+          <h1 className="text-3xl font-extrabold tracking-tight mb-3">أهلاً بك في أساسياتي</h1>
+          <p className="text-muted-foreground font-medium">لنقم بضبط أوقاتك الأساسية لنساعدك في بناء أساسياتك اليومية.</p>
         </div>
 
         <div className="space-y-6">
@@ -79,7 +79,7 @@ export function OnboardingPage() {
               </div>
               <div>
                 <h3 className="font-bold">الإشعارات</h3>
-                <p className="text-xs text-muted-foreground font-medium">تذكير بالروتين ووقت النوم</p>
+                <p className="text-xs text-muted-foreground font-medium">تذكير بالأساسيات ووقت النوم</p>
               </div>
             </div>
             <button 

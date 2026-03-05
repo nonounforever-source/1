@@ -1,8 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Portal } from "@/components/ui/Portal";
 import { Plus, Settings, LayoutGrid, CheckCircle2, ChevronLeft, Trash2, Sprout, Sparkles, Dumbbell, Briefcase, BookOpen, Droplets, TrendingUp } from "lucide-react";
-import { useApp, Habit, DAILY_QUOTES } from "@/lib/store";
+import { useApp, Habit } from "@/lib/store";
 import { cn, hapticFeedback } from "@/lib/utils";
 import { PrayerModal, QuranModal, AdhkarModal, WaterModal } from "@/components/HabitModals";
 import { ResponsiveContainer, AreaChart, Area, XAxis, Tooltip } from "recharts";
@@ -23,7 +23,7 @@ export function HabitsPage() {
   const { 
     habits, addHabit, deleteHabit, updateHabitProgress, 
     waterSchedule, updateWaterSchedule, 
-    settings, updateSettings, dailyQuoteIndex
+    settings, updateSettings
   } = useApp();
 
   // --- Local UI State ---
@@ -62,8 +62,6 @@ export function HabitsPage() {
       };
     });
   }, [habits]);
-
-  const dailyQuote = DAILY_QUOTES[dailyQuoteIndex];
 
   // Calculate today's overall progress
   const completedCount = habits.filter(h => isHabitCompleted(h, today)).length;
@@ -159,7 +157,7 @@ export function HabitsPage() {
           <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-1">
             {new Date().toLocaleDateString("ar-SA", { weekday: "long", day: "numeric", month: "long" })}
           </p>
-          <h1 className="ios-large-title">الروتين</h1>
+          <h1 className="ios-large-title">الأساسيات</h1>
         </div>
         <div className="flex gap-3 mb-1">
           <button 
@@ -402,7 +400,7 @@ export function HabitsPage() {
         >
           <LayoutGrid className="mx-auto h-12 w-12 opacity-20 mb-4" />
           <p className="font-semibold text-lg text-foreground">لا توجد عادات هنا</p>
-          <p className="text-sm mt-1 mb-6">ابدأ ببناء روتينك اليومي الآن</p>
+          <p className="text-sm mt-1 mb-6">ابدأ ببناء أساسياتك اليومية الآن</p>
           <button 
             onClick={() => setIsAddOpen(true)}
             className="text-primary font-bold hover:opacity-70 transition-opacity"
@@ -470,7 +468,7 @@ export function HabitsPage() {
               <div className="p-6 pt-2 space-y-6">
                 <div className="flex justify-between items-center mb-2">
                   <button onClick={() => setIsAddOpen(false)} className="text-primary font-semibold text-lg">إلغاء</button>
-                  <h3 className="font-bold text-xl">روتين جديد</h3>
+                  <h3 className="font-bold text-xl">أساسيات جديدة</h3>
                   <button 
                     onClick={handleAdd}
                     disabled={!newHabit.title}
@@ -491,7 +489,7 @@ export function HabitsPage() {
                         autoFocus
                         value={newHabit.title}
                         onChange={e => setNewHabit({ ...newHabit, title: e.target.value })}
-                        placeholder="اسم الروتين..."
+                        placeholder="اسم الأساسيات..."
                         className="flex-1 bg-transparent text-xl font-black outline-none placeholder:text-muted-foreground/30 tracking-tight"
                       />
                     </div>
@@ -561,7 +559,7 @@ export function HabitsPage() {
                 </div>
                 
                 <div>
-                  <label className="text-xs font-semibold text-muted-foreground mb-2 block uppercase tracking-wider ml-2">أوقات الروتين</label>
+                  <label className="text-xs font-semibold text-muted-foreground mb-2 block uppercase tracking-wider ml-2">أوقات الأساسيات</label>
                   <div className="bg-card rounded-2xl border border-border/50 overflow-hidden divide-y divide-border/40">
                     <div className="flex items-center justify-between px-4 py-3">
                       <span className="font-semibold text-foreground">وقت الاستيقاظ</span>
